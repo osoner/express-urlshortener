@@ -1,0 +1,17 @@
+{
+    "name": "express-urlshortener",
+    "version": "0.1",
+    "description": "Simple URL shortener using ExpressJS and MongoDB",
+    "keywords": ["shorturl", "shortlink", "url", "shortener"],
+    "author": "Ahmet AYGUN <me@ahmetaygun.net>",
+    "homepage": "https://github.com/ahmet/express-urlshortener",
+    "bugs": { "url": "https://github.com/ahmet/express-urlshortener/issues" },
+    "private": true,
+    "dependencies": {
+      "express": "2.5.0",
+      "jade": ">= 0.0.1",
+      "connect": ">= 1.7.2",
+      "mime": ">= 1.2.4",
+      "mongodb": ">= 2.0.1"
+  }
+}
