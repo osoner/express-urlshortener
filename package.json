@@ -1,6 +1,6 @@
 {
     "name": "express-urlshortener",
-    "version": "0.1",
+    "version": "0.0.1",
     "description": "Simple URL shortener using ExpressJS and MongoDB",
     "keywords": ["shorturl", "shortlink", "url", "shortener"],
     "author": "Ahmet AYGUN <me@ahmetaygun.net>",
@@ -12,6 +12,6 @@
       "jade": ">= 0.0.1",
       "connect": ">= 1.7.2",
       "mime": ">= 1.2.4",
-      "mongodb": ">= 2.0.1"
+      "mongodb": ">= 0.9.7"
   }
 }
