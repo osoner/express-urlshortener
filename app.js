@@ -3,14 +3,13 @@
  */
 
 var express = require('express')
-var routes = require('./routes')
 var URLProvider = require('./urlprovider-mongo').URLProvider;
 
 var mongoHost = 'localhost';
-var mongoPort = 27017;
-var mongoDb = 'shortenode';
-var mongoUser = 'shortenode';
-var mongoPass = 'qwerty';
+var mongoPort = 10036;
+var mongoDb = 'app2024915';
+var mongoUser = 'heroku';
+var mongoPass = 'hoppidi';
   
 var app = module.exports = express.createServer();
 
@@ -35,20 +34,40 @@ app.configure('production', function(){
 
 var urlProvider = new URLProvider(mongoHost, mongoPort, mongoUser, mongoPass, mongoDb);
 
-
 // Routes
+app.get('/', function(req, res){
+    res.json({title: 'Express'})
+})
+
 app.get('/test', function(req, res){
   urlProvider.findAll(function(error, docs){
       res.json(docs);
   });
 })
 
-app.get('/', routes.index);
-app.get('/new', routes.newform);
-app.post('/create', routes.create);
-app.get('/:shorturl', routes.shorturl);
-app.get('/:shorturl.json', routes.shorturljson);
-app.get('/:shorturl.html', routes.shorturlhtml);
+
+
+app.get('/blog/new', function(req, res) {
+    res.render('blog_new.jade', { locals: {
+        title: 'New Post'
+    }
+    });
+});
+
+app.post('/blog/new', function(req, res){
+    articleProvider.save({
+        title: req.param('title'),
+        body: req.param('body')
+    }, function( error, docs) {
+        res.redirect('/')
+    });
+});
+
+//app.get('/new', routes.newform);
+//app.post('/create', routes.create);
+//app.get('/:shorturl', routes.shorturl);
+//app.get('/:shorturl.json', routes.shorturljson);
+//app.get('/:shorturl.html', routes.shorturlhtml);
 
 var port = process.env.PORT || 3000;
 
