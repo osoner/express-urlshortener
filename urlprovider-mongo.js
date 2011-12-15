@@ -7,9 +7,9 @@ var ObjectID = require('mongodb').ObjectID;
 URLProvider = function(host, port, user, pass, database) {
   this.db = new Db(database, new Server(host, port, {auto_reconnect: true}, {}));
 
-  //if(user && pass){
-  //  this.db.authenticate(user, pass, function(){})
-  //}
+  if(user && pass){
+    this.db.authenticate(user, pass, function(){})
+  }
 
   this.db.open(function(){});
 };
