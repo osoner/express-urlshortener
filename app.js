@@ -14,7 +14,6 @@ var mongoPass = 'hoppidi';
 var app = module.exports = express.createServer();
 
 // Configuration
-
 app.configure(function(){
   app.set('views', __dirname + '/views');
   app.set('view engine', 'jade');
@@ -45,25 +44,15 @@ app.get('/test', function(req, res){
   });
 })
 
-
-
-app.get('/blog/new', function(req, res) {
-    res.render('blog_new.jade', { locals: {
-        title: 'New Post'
-    }
-    });
-});
-
-app.post('/blog/new', function(req, res){
-    articleProvider.save({
-        title: req.param('title'),
-        body: req.param('body')
+app.post('/new', function(req, res){
+    urlProvider.save({
+        long: req.param('long'),
+        short: req.param('short')
     }, function( error, docs) {
         res.redirect('/')
     });
 });
 
-//app.get('/new', routes.newform);
 //app.post('/create', routes.create);
 //app.get('/:shorturl', routes.shorturl);
 //app.get('/:shorturl.json', routes.shorturljson);
