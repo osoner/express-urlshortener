@@ -6,7 +6,7 @@ var Schema = mongoose.Schema
 var URL = new Schema({
     id      : ObjectId,
     long    : String,
-    short   : String
+    short   : { type: String, index: { unique: true } }
 });
 
 mongoose.model('URL', URL);
