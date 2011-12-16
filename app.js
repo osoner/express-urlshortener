@@ -52,9 +52,9 @@ app.post('/new', function(req, res){
   });
 });
 
-app.get('/:short', function(req, res) {
+app.get('/go/:short', function(req, res) {
   URLProvider.findByShort(req.params.short, function(error, url) {
-    if(!error || url){
+    if(!error){
       //res.json(url);
       res.redirect(url.long);
     }
