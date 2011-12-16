@@ -2,6 +2,17 @@
 
 It's a simple url shortener application written using node.js and express.
 
+## Demo
+
+You can find a [demo](http://urlshortener.heroku.com) on [Heroku](http://heroku.com), feel free to play with it.
+
+## Installation
+
+* Clone from github: `git clone git://github.com/ahmet/express-urlshortener.git`
+* Install dependencies: `npm install`
+* Configure: Open and edit app.js
+* Run: `node app.js`
+
 ## Contributing
 
 Want to contribute? It's good to hear.
