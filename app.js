@@ -52,18 +52,11 @@ app.post('/new', function(req, res){
   });
 });
 
-/*
 app.get('/:id', function(req, res) {
-    urlProvider.findById(req.params.id, function(error, url) {
-        res.json(url);
-    });
+  URLProvider.findById(req.params.id, function(error, url) {
+    res.json(url);
+  });
 });
-*/
-
-//app.post('/create', routes.create);
-//app.get('/:shorturl', routes.shorturl);
-//app.get('/:shorturl.json', routes.shorturljson);
-//app.get('/:shorturl.html', routes.shorturlhtml);
 
 var port = process.env.PORT || 3000;
 
