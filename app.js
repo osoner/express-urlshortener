@@ -8,7 +8,7 @@ var URLProvider = require('./urlprovider').URLProvider;
 
 var mongoHost = 'staff.mongohq.com';
 var mongoPort = 10036;
-var mongoDb = 'app2024915';
+var mongoDb = 'app2044968';
 var mongoUser = 'heroku';
 var mongoPass = 'hoppidi';
 
