@@ -1,3 +1,5 @@
+var mongoose = require('mongoose')
+
 var Schema = mongoose.Schema
   , ObjectId = Schema.ObjectId;
 
@@ -21,7 +23,7 @@ URLProvider.prototype.findAll = function(callback) {
 
 //Find post by ID
 URLProvider.prototype.findById = function(id, callback) {
-  URL.findById(id, function url {
+  URL.findById(id, function (err, url) {
     if (!err) {
 	  callback(null, url);
 	}

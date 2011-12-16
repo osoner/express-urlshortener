@@ -38,18 +38,6 @@ var URLProvider = new URLProvider();
 
 // Routes
 app.get('/', function(req, res){
-  PostProvider.findAll(function(error, posts){
-    res.render('index', {
-	        locals: {
-	          title: 'Mongo Node.js Blog',
-	          posts: posts
-	        }
-	});
-  })
-});
-
-
-app.get('/', function(req, res){
   URLProvider.findAll(function(error, urls){
     res.json(urls);
   })
