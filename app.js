@@ -54,8 +54,10 @@ app.post('/new', function(req, res){
 
 app.get('/:short', function(req, res) {
   URLProvider.findByShort(req.params.short, function(error, url) {
-    //res.json(url);
-    res.redirect(url.long);
+    if(!error){
+      //res.json(url);
+      res.redirect(url.long);
+    }
   });
 });
 
