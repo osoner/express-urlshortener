@@ -30,6 +30,15 @@ URLProvider.prototype.findById = function(id, callback) {
   });
 };
 
+//Find post by Short
+URLProvider.prototype.findByShort = function(short, callback) {
+  URL.findOne({ 'short': short }, function (err, url) {
+    if (!err) {
+	  callback(null, url);
+	}
+  });
+};
+
 //Create a new post
 URLProvider.prototype.save = function(params, callback) {
   var url = new URL({long: params['long'], short: params['short'], created_at: new Date()});
