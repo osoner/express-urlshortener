@@ -3,13 +3,16 @@
  */
 
 var express = require('express')
-var URLProvider = require('./urlprovider-mongo').URLProvider;
+var mongoose = require('mongoose')
+var URLProvider = require('./urlprovider').URLProvider;
 
-var mongoHost = 'localhost';
+var mongoHost = 'staff.mongohq.com';
 var mongoPort = 10036;
 var mongoDb = 'app2024915';
 var mongoUser = 'heroku';
 var mongoPass = 'hoppidi';
+
+mongoose.connect('mongodb://' + mongoUser + ':' + mongoPass + '@' + mongoHost + ':' + mongoPort + '/' + mongoDb);
   
 var app = module.exports = express.createServer();
 
@@ -31,27 +34,43 @@ app.configure('production', function(){
   app.use(express.errorHandler()); 
 });
 
-var urlProvider = new URLProvider(mongoHost, mongoPort, mongoUser, mongoPass, mongoDb);
+var URLProvider = new URLProvider();
 
 // Routes
 app.get('/', function(req, res){
-    res.json({title: 'Express'})
-})
+  PostProvider.findAll(function(error, posts){
+    res.render('index', {
+	        locals: {
+	          title: 'Mongo Node.js Blog',
+	          posts: posts
+	        }
+	});
+  })
+});
 
-app.get('/test', function(req, res){
-  urlProvider.findAll(function(error, docs){
-      res.json(docs);
-  });
-})
+
+app.get('/', function(req, res){
+  URLProvider.findAll(function(error, urls){
+    res.json(urls);
+  })
+});
 
 app.post('/new', function(req, res){
-    urlProvider.save({
-        long: req.param('long'),
-        short: req.param('short')
-    }, function( error, docs) {
-        res.redirect('/')
+  URLProvider.save({
+    long: req.param('long'),
+    short: req.param('short')
+  }, function( error, docs) {
+    res.redirect('/')
+  });
+});
+
+/*
+app.get('/:id', function(req, res) {
+    urlProvider.findById(req.params.id, function(error, url) {
+        res.json(url);
     });
 });
+*/
 
 //app.post('/create', routes.create);
 //app.get('/:shorturl', routes.shorturl);
