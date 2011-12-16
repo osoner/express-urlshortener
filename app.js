@@ -47,14 +47,15 @@ app.post('/new', function(req, res){
   URLProvider.save({
     long: req.param('long'),
     short: req.param('short')
-  }, function( error, docs) {
+  }, function( error, urls) {
     res.redirect('/')
   });
 });
 
-app.get('/:id', function(req, res) {
-  URLProvider.findById(req.params.id, function(error, url) {
-    res.json(url);
+app.get('/:short', function(req, res) {
+  URLProvider.findByShort(req.params.short, function(error, url) {
+    //res.json(url);
+    res.redirect(url.long);
   });
 });
 
