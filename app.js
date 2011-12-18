@@ -5,7 +5,7 @@
 var config = require('./lib/config');
 var express = require('express');
 var mongoose = require('mongoose');
-var URLProvider = require('./urlprovider').URLProvider;
+var URLProvider = require('./lib/urlprovider').URLProvider;
 var app = module.exports = express.createServer();
 
 mongoose.connect('mongodb://' + config.mongo.user + ':' + config.mongo.pass + '@' + config.mongo.host + ':' + config.mongo.port + '/' + config.mongo.db);
