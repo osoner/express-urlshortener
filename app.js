@@ -43,20 +43,20 @@ app.get('/', function(req, res){
   })
 });
 
-app.post('/new', function(req, res){
+app.post('/new/:url/:code', function(req, res){
   URLProvider.save({
-    long: req.param('long'),
-    short: req.param('short')
+    url: req.param('url'),
+    code: req.param('code')
   }, function( error, urls) {
     res.redirect('/')
   });
 });
 
-app.get('/go/:short', function(req, res) {
-  URLProvider.findByShort(req.params.short, function(error, url) {
+app.get('/go/:code', function(req, res) {
+  URLProvider.findByShort(req.param('code'), function(error, url) {
     if(!error){
       //res.json(url);
-      res.redirect(url.long);
+      res.redirect(url.url);
     }
   });
 });

@@ -5,8 +5,8 @@ var Schema = mongoose.Schema
 
 var URL = new Schema({
     id      : ObjectId,
-    long    : String,
-    short   : { type: String, index: { unique: true } }
+    url    : String,
+    code   : { type: String, index: { unique: true } }
 });
 
 mongoose.model('URL', URL);
@@ -31,8 +31,8 @@ URLProvider.prototype.findById = function(id, callback) {
 };
 
 //Find post by Short
-URLProvider.prototype.findByShort = function(short, callback) {
-  URL.findOne({ 'short': short }, function (err, url) {
+URLProvider.prototype.findByShort = function(code, callback) {
+  URL.findOne({ 'code': code }, function (err, url) {
     if (!err) {
 	  callback(null, url);
 	}
@@ -41,8 +41,8 @@ URLProvider.prototype.findByShort = function(short, callback) {
 
 //Create a new post
 URLProvider.prototype.save = function(params, callback) {
-  var url = new URL({long: params['long'], short: params['short'], created_at: new Date()});
-  url.save(function (err) {
+  var newurl = new URL({url: params['url'], code: params['code'], created_at: new Date()});
+  newurl.save(function (err) {
     callback();
   });
 };
