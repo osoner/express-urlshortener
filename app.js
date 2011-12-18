@@ -2,20 +2,14 @@
  * Module dependencies.
  */
 
-var express = require('express')
-var mongoose = require('mongoose')
+var config = require('./lib/config');
+var express = require('express');
+var mongoose = require('mongoose');
 var URLProvider = require('./urlprovider').URLProvider;
-
-var mongoHost = 'staff.mongohq.com';
-var mongoPort = 10036;
-var mongoDb = 'app2044968';
-var mongoUser = 'heroku';
-var mongoPass = 'hoppidi';
-
-mongoose.connect('mongodb://' + mongoUser + ':' + mongoPass + '@' + mongoHost + ':' + mongoPort + '/' + mongoDb);
-  
 var app = module.exports = express.createServer();
 
+mongoose.connect('mongodb://' + config.mongo.user + ':' + config.mongo.pass + '@' + config.mongo.host + ':' + config.mongo.port + '/' + config.mongo.db);
+  
 // Configuration
 app.configure(function(){
   app.use(express.bodyParser());
@@ -59,7 +53,7 @@ app.get('/go/:code', function(req, res) {
   });
 });
 
-var port = process.env.PORT || 3000;
+var port = process.env.PORT || config.port;
 
 app.listen(port, function() {
   console.log("Express server listening on port %d in %s mode", app.address().port, app.settings.env);
