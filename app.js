@@ -7,6 +7,7 @@ var express = require('express');
 var mongoose = require('mongoose');
 var URLProvider = require('./lib/urlprovider').URLProvider;
 var app = module.exports = express.createServer();
+var URL = mongoose.model('URL');
 
 mongoose.connect('mongodb://' + config.mongo.user + ':' + config.mongo.pass + '@' + config.mongo.host + ':' + config.mongo.port + '/' + config.mongo.db);
   
@@ -36,19 +37,70 @@ app.get('/', function(req, res){
 });
 
 app.post('/new', function(req, res){
-  URLProvider.save({
-    url: req.param('url'),
-    code: req.param('code')
-  }, function( error, urls) {
-    res.redirect('/')
+  if(req.param('url')){
+    URLProvider.findByUrl(req.param('url'), function(error, url) {
+      if(!error && url){
+        res.json(url, 409);
+      }
+      else if(!error && !url){
+        if(req.param('code')){
+            URLProvider.findByCode(req.param('code'), function(error, url) {
+              if(!error && url){
+                res.json(url, 409);
+              }
+              else{
+                URLProvider.save({url: req.param('url'), code: req.param('code')}, function(error){
+                  if(!error){
+                    URLProvider.findByCode(req.param('code'), function(error, url) {
+                      if(!error){
+                        res.json(url, 201);
+                      }
+                    });
+                  }
+                  else{
+                    res.json(error, 500);
+                  }
+                });
+              }
+            });
+        }
+        else{
+            URLProvider.save({url: req.param('url')}, function(error){
+              if(!error){
+                URLProvider.findByUrl(req.param('url'), function(error, url) {
+                  if(!error && url){
+                    res.json(url, 201);
+                  }
+                  else{
+                    res.json(error, 500);
+                  }
+                });
+              }
+              else{
+                res.json(error, 500);
+              }
+            });
+        }
+      }
+    });
+  }
+  else{
+    res.send(400);
+  }
+});
+
+app.get('/show/:code', function(req, res) {
+  URLProvider.findByCode(req.param('code'), function(error, url) {
+    if(!error){
+      res.json(url);
+    }
   });
 });
 
 app.get('/go/:code', function(req, res) {
-  URLProvider.findByShort(req.param('code'), function(error, url) {
+  URLProvider.findByCode(req.param('code'), function(error, url) {
     if(!error){
-      //res.json(url);
-      res.redirect(url.url);
+      res.redirect(url.url, 301);
     }
   });
 });
