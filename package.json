@@ -9,6 +9,7 @@
     "private": true,
     "dependencies": {
       "express": ">= 2.5.0",
-      "mongoose": ">= 2.4.5"
+      "mongoose": ">= 2.4.5",
+      "passport": ">= 0.1.5"
   }
 }
