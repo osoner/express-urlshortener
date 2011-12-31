@@ -109,6 +109,8 @@ app.get('/a/twitter', passport.authenticate('twitter'));
 app.get('/a/twitter/callback', passport.authenticate('twitter', { successRedirect: '/', failureRedirect: '/login' }));
 app.get('/a/facebook', passport.authenticate('facebook'));
 app.get('/a/facebook/callback', passport.authenticate('facebook', { successRedirect: '/', failureRedirect: '/login' }));
+app.get('/a/foursquare', passport.authenticate('foursquare'));
+app.get('/a/foursquare/callback', passport.authenticate('foursquare', { successRedirect: '/', failureRedirect: '/login' }));
 
 var port = process.env.PORT || config.port;
 
