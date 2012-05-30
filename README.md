@@ -1,4 +1,4 @@
-# express-urlshortener ![Project status](http://stillmaintained.com/ahmet/express-urlshortener.png)
+# express-urlshortener [![Build Status](https://secure.travis-ci.org/ahmet/express-urlshortener.png?branch=master)](http://travis-ci.org/ahmet/express-urlshortener)
 
 It's a simple url shortener application written using node.js and express.
 
